@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('/build/css/app.css') }}"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+          integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+
+    {% block stylesheets %}{% endblock %}
+<body>
+{% include 'include/navbar.html.twig' %}
+
+<div class="container">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% block body %}{% endblock %}
+</div>
+<script src="{{ asset('build/js/app.js') }}"></script>
+<script src="{{ asset('build/js/collection.js') }}"></script>
+<script src="{{ asset('build/js/check.js') }}"></script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

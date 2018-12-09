@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Resultat{% endblock %}
+
+{% block body %}
+    <div class="w-50 m-auto">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+    <h1 class="m-2">Résultats de la recherche</h1>
+
+    {% if proposal %}
+        <div class="alert alert-danger">Voulez vous dire <a
+                    href="{{ path('search') }}?search={{ proposal }}">{{ proposal }}</a> ?
+        </div>
+    {% endif %}
+    <div class="row">
+        {% for person in persons %}
+            {% include 'person/_person.html.twig' %}
+        {% else %}
+            <h4 class="m-2">Pas d'annonce trouvée</h4>
+        {% endfor %}
+    </div>
+{% endblock %}
