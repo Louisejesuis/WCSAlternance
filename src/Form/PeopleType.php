@@ -2,24 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\Role;
+use App\Entity\People;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RoleType extends AbstractType
+class PeopleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('firstName')
+            ->add('lastName')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Role::class,
+            'data_class' => People::class,
         ]);
     }
 }

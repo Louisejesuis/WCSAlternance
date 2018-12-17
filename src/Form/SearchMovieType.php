@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SearchPersonType extends AbstractType
+class SearchMovieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -14,7 +14,7 @@ class SearchPersonType extends AbstractType
             ->setAction('/search')
             ->setMethod('GET')
             ->add('search', null, array(
-                'label' => "Rechercher un Wilder"
+                'label' => "Rechercher un film"
             ))
 
         ;

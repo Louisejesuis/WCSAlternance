@@ -8,23 +8,8 @@
             {{ form_end(form) }}
         </div>
         <div class="row">
-
-            {% for person in people %}
-                <div class="card m-3">
-                    <img class="card-img-top" src="{{ vich_uploader_asset(person, 'imageFile') }}"
-                         alt="Card image cap">
-                    <div class="card-body">
-                        <h3 class="card-text">{{ person.firstName }}  {{ person.lastName }}</h3>
-                        <h5 class="card-text quote m-3">«{{ person.quote }}»</h5>
-                        <div class="row">
-                            <a href="{{ path('person_show', {'id': person.id}) }}"
-                               class="btn btn-outline-primary mx-auto">Voir
-                                l'annonce</a>
-
-                        </div>
-
-                    </div>
-                </div>
-            {% endfor %}
+        {% for movie in movies %}
+        {% include 'movies/_movies.html.twig' %}
+        {% endfor %}
         </div>
     {% endblock %}

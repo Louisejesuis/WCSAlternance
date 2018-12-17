@@ -4,7 +4,7 @@ Projet de
 ## Pré-requis
 - [Composer](https://getcomposer.org/download/) (Avec `--install-dir` et `--filename`)
 - [Node.js et NPM](https://nodejs.org/en/) (Ou [via le gestionnaire de paquets](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions))
-- yarn
+
 Versions attendues:
     - PHP >= 7.1
     - NPM >= 6.1.0

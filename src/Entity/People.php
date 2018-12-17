@@ -3,9 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Collection as Collection;
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PeopleRepository")
  */
@@ -21,27 +20,27 @@ class People
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $first_name;
+    private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $last_name;
+    private $lastName;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Movies", mappedBy="director")
      */
-    private $movies_director;
+    private $moviesDirector;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Movies", mappedBy="writer")
      */
-    private $movies_writer;
+    private $moviesWriter;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Movies", mappedBy="actor")
      */
-    private $movies_actor;
+    private $moviesActor;
 
     public function __construct()
     {
@@ -53,54 +52,90 @@ class People
         return $this->id;
     }
 
-    public function getFirstName(): ?string
+    public function getfirstName(): ?string
     {
-        return $this->first_name;
+        return $this->firstName;
     }
 
-    public function setFirstName(string $first_name): self
+    public function setfirstName(string $firstName): self
     {
-        $this->first_name = $first_name;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
-    public function getLastName(): ?string
+    public function getlastName(): ?string
     {
-        return $this->last_name;
+        return $this->lastName;
     }
 
-    public function setLastName(string $last_name): self
+    public function setlastName(string $lastName): self
     {
-        $this->last_name = $last_name;
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->firstName . $this->lastName;
+    }
+
+    /**
+     * Get the value of moviesDirector
+     */ 
+    public function getmoviesDirector()
+    {
+        return $this->moviesDirector;
+    }
+
+    /**
+     * Set the value of moviesDirector
+     *
+     * @return  self
+     */ 
+    public function setmoviesDirector($moviesDirector)
+    {
+        $this->moviesDirector = $moviesDirector;
 
         return $this;
     }
 
     /**
-     * @return Collection|Movies[]
-     */
-    public function getMovies(): Collection
+     * Get the value of moviesWriter
+     */ 
+    public function getmoviesWriter()
     {
-        return $this->movies;
+        return $this->moviesWriter;
     }
 
-    public function addMovie(Movies $movie): self
+    /**
+     * Set the value of moviesWriter
+     *
+     * @return  self
+     */ 
+    public function setmoviesWriter($moviesWriter)
     {
-        if (!$this->movies->contains($movie)) {
-            $this->movies[] = $movie;
-            $movie->addDirector($this);
-        }
+        $this->moviesWriter = $moviesWriter;
 
         return $this;
     }
 
-    public function removeMovie(Movies $movie): self
+    /**
+     * Get the value of moviesActor
+     */ 
+    public function getmoviesActor()
     {
-        if ($this->movies->contains($movie)) {
-            $this->movies->removeElement($movie);
-            $movie->removeDirector($this);
-        }
+        return $this->moviesActor;
+    }
+
+    /**
+     * Set the value of moviesActor
+     *
+     * @return  self
+     */ 
+    public function setmoviesActor($moviesActor)
+    {
+        $this->moviesActor = $moviesActor;
 
         return $this;
     }

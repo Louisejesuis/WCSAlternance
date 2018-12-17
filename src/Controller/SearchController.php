@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Form\SearchPersonType;
-use App\Repository\PersonRepository;
+use App\Form\SearchMovieType;
+use App\Repository\MoviesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,21 +13,21 @@ class SearchController extends Controller
     /**
      * @Route("/search", name="search")
      */
-    public function index(Request $request, PersonRepository $personRepository)
+    public function index(Request $request, MoviesRepository $movieRepository)
     {
-        $form = $this->createForm(SearchPersonType::class);
+        $form = $this->createForm(SearchMovieType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $searchInput = $data['search'];
             // recherche par LIKE
-            $persons = $personRepository->advancedPersonSearch($searchInput);
+            $movies = $movieRepository->advancedMovieSearch($searchInput);
             // si pas de resultat, recherche floue (metaphone + levenstein)
-            if (empty($persons)) {
-                $allPersons = $personRepository->findAll();
-                foreach ($allPersons as $person) {
-                    $titleWords = explode(' ', $person->getFirstName());
+            if (empty($movies)) {
+                $allMovies = $movieRepository->findAll();
+                foreach ($allMovies as $movie) {
+                    $titleWords = explode(' ', $movie->getName());
                     foreach ($titleWords as $word) {
                         if (
                             metaphone($word) === metaphone($searchInput)
@@ -44,8 +44,7 @@ class SearchController extends Controller
 
         return $this->render('search/index.html.twig', [
             'form'    => $form->createView(),
-            'proposal' => $proposal ?? '',
-            'persons' => $persons ?? [],
+            'movies' => $movies ?? [],
         ]);
     }
 }

@@ -27,18 +27,15 @@ $user->setRoles($roles);
 
 $manager->persist($user);
 $this->addReference($username, $user);
-}
 
 $manager->flush();
+}
 }
 
 private function getUserData(): array
 {
 return [
-// $userData = [$fullname, $username, $password, $email, $roles];
-['Jane Doe', 'jane_admin', 'kitten', 'jane_admin@symfony.com', ['ROLE_ADMIN']],
-['Tom Doe', 'tom_admin', 'kitten', 'tom_admin@symfony.com', ['ROLE_ADMIN']],
-['John Doe', 'john_user', 'kitten', 'john_user@symfony.com', ['ROLE_USER']],
+['John Wild', 'john_user', 'WildCodeSchool', 'john_user@symfony.com', ['ROLE_USER']],
 ];
 }
 

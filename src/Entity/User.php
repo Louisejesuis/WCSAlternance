@@ -66,13 +66,19 @@ class User implements UserInterface, \Serializable
     private $roles = [];
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Person", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\People", mappedBy="user")
      */
     private $people;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Movies", mappedBy="user_id")
+     */
+    private $movies;
 
     public function __construct()
     {
         $this->people = new ArrayCollection();
+        $this->movies = new ArrayCollection();
     }
 
     public function getId(): int
@@ -184,30 +190,61 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * @return Collection|Person[]
+     * @return Collection|People[]
      */
     public function getPeople(): Collection
     {
         return $this->people;
     }
 
-    public function addPerson(Person $person): self
+    public function addPeople(People $people): self
     {
-        if (!$this->people->contains($person)) {
-            $this->people[] = $person;
-            $person->setUser($this);
+        if (!$this->people->contains($people)) {
+            $this->people[] = $people;
+            $people->setUser($this);
         }
 
         return $this;
     }
 
-    public function removePerson(Person $person): self
+    public function removePeople(People $people): self
     {
-        if ($this->people->contains($person)) {
-            $this->people->removeElement($person);
+        if ($this->people->contains($people)) {
+            $this->people->removeElement($people);
             // set the owning side to null (unless already changed)
-            if ($person->getUser() === $this) {
-                $person->setUser(null);
+            if ($people->getUser() === $this) {
+                $people->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Movies[]
+     */
+    public function getMovies(): Collection
+    {
+        return $this->movies;
+    }
+
+    public function addMovie(Movies $movie): self
+    {
+        if (!$this->movies->contains($movie)) {
+            $this->movies[] = $movie;
+            $movie->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMovie(Movies $movie): self
+    {
+        if ($this->movies->contains($movie)) {
+            $this->movies->removeElement($movie);
+            // set the owning side to null (unless already changed)
+            if ($movie->getUserId() === $this) {
+                $movie->setUserId(null);
             }
         }
 

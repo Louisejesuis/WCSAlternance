@@ -28,15 +28,6 @@ class Genre
      */
     private $movies;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Genre", inversedBy="genres")
-     */
-    private $genre;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Genre", mappedBy="genre")
-     */
-    private $genres;
 
     public function __construct()
     {
@@ -90,37 +81,7 @@ class Genre
         return $this;
     }
 
-    /**
-     * @return Collection|self[]
-     */
-    public function getGenre(): Collection
-    {
-        return $this->genre;
-    }
-
-    public function addGenre(self $genre): self
-    {
-        if (!$this->genre->contains($genre)) {
-            $this->genre[] = $genre;
-        }
-
-        return $this;
-    }
-
-    public function removeGenre(self $genre): self
-    {
-        if ($this->genre->contains($genre)) {
-            $this->genre->removeElement($genre);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|self[]
-     */
-    public function getGenres(): Collection
-    {
-        return $this->genres;
+    public function __toString() {
+        return $this->name;
     }
 }

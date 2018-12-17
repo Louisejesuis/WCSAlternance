@@ -11,16 +11,11 @@
     </div>
     <h1 class="m-2">Résultats de la recherche</h1>
 
-    {% if proposal %}
-        <div class="alert alert-danger">Voulez vous dire <a
-                    href="{{ path('search') }}?search={{ proposal }}">{{ proposal }}</a> ?
-        </div>
-    {% endif %}
     <div class="row">
-        {% for person in persons %}
-            {% include 'person/_person.html.twig' %}
+        {% for movie in movies %}
+            {% include 'movies/_movies.html.twig' %}
         {% else %}
-            <h4 class="m-2">Pas d'annonce trouvée</h4>
+            <h4 class="m-2">Pas de film trouvé</h4>
         {% endfor %}
     </div>
 {% endblock %}

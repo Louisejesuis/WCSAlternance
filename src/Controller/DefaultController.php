@@ -7,8 +7,8 @@
  */
 namespace App\Controller;
 
-use App\Form\SearchPersonType;
-use App\Repository\PersonRepository;
+use App\Form\SearchMovieType;
+use App\Repository\MoviesRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,16 +21,13 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="index")
      */
-    public function index(PersonRepository $personRepository)
+    public function index(MoviesRepository $movieRepository)
     {
-        $form = $this->createForm(SearchPersonType::class);
+        $form = $this->createForm(SearchMovieType::class);
 
-        $people = $personRepository->findAll();
-        shuffle($people);
-        $people = array_slice($people, 0, 6);
-
+        $movies = $movieRepository->findAll();
         return $this->render('index.html.twig', [
-                'people' => $people,
+                'movies' => $movies,
                 'form'    => $form->createView(),
             ]
         );

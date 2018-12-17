@@ -18,7 +18,17 @@ class MoviesRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Movies::class);
     }
-
+    public function advancedMovieSearch(string $input)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.name LIKE :input')
+            ->orWhere('m.synopsis LIKE :input')
+            ->setParameter('input', "%$input%")
+            ->orderBy('m.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return Movies[] Returns an array of Movies objects
     //  */
