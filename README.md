@@ -1,5 +1,5 @@
 # WildCiné
-Projet de
+Projet pour l'alternance de la Wild Code School
 
 ## Pré-requis
 - [Composer](https://getcomposer.org/download/) (Avec `--install-dir` et `--filename`)
@@ -20,16 +20,16 @@ Versions attendues:
 3. Installer les dépendances via NPM.
     - `npm install`
 4. Construire les assets avec NPM.
-    - `yarn`
-5. Installer la base de données
-6. Démarrer le serveur PHP.
+    - `npm run dev`
+5. Donner vos identifiants de base de données dans '.env'
+6. Installer la base de données
+7. Démarrer le serveur PHP.
     - `php bin/console server:run`
 
 ## Installer la base de données
 ```
 $ php bin/console doctrine:database:create
 $ php bin/console doctrine:schema:update -f
-$ php bin/console doctrine:fixtures:load
 ```
 
 ## Développeurs
