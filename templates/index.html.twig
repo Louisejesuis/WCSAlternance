@@ -8,8 +8,18 @@
             {{ form_end(form) }}
         </div>
         <div class="row">
+        {% if movies %}
         {% for movie in movies %}
         {% include 'movies/_movies.html.twig' %}
         {% endfor %}
+        {% else %}
+        <div class="col-12">
+            <div class="jumbotron">
+                <h6 class="text-center">Aucun film n'a été créé pour le moment... <a href="{{ path('movies_new') }}">en créer un ?</a></h6>
+            </div>
+        </div>
+        {% endif %}
+
+        </div>
         </div>
     {% endblock %}

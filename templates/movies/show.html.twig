@@ -24,10 +24,16 @@
     </div>
 
     <div class="row">
-        <div class="col-6">
-            <img src="{{ vich_uploader_asset(movie, 'imageFile') }}" alt="" class="img-fluid">
+        <div class="col-lg-6 col-12">
+            <img src="{{ vich_uploader_asset(movie, 'imageFile') }}" alt="{{movie.imageName}}" class="img-fluid poster">
         </div>
-        <div class="col-6">
+        <div class="col-lg-6 col-12">
+            <iframe width="500" height="400" src="{{movie.trailerLink}}">
+            </iframe>
+        </div> 
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-12">
             <ul class="list-unstyled">
                 <li>
                     Date de sortie : {{ movie.releaseDate|date('d-m-Y')}}
@@ -69,10 +75,14 @@
                 </li>
             </ul>
         </div>
+        <div class="col-lg-6 col-12">
+            <div class="row">
+                <h4>Le synopsis</h4>   
+            </div>
+            <p>{{movie.synopsis}}</p>
+        </div>
     </div>
-    <div class="row my-5">
-    <h4>Le synopsis</h4>   
-        <p>{{movie.synopsis}}</p>
+    
     </div>
 
 {% endblock %}

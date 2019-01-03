@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Movies;
+use App\Entity\User;
+use App\Entity\Genre;
+use App\Entity\People;
 use App\Form\MoviesType;
 use App\Repository\MoviesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 /**
- * @Route("/movies")
+ * @Route("/movies")people_new
  */
 class MoviesController extends AbstractController
 {
@@ -30,13 +33,36 @@ class MoviesController extends AbstractController
         $movie = new Movies();
         $form = $this->createForm(MoviesType::class, $movie);
         $form->handleRequest($request);
-
+        $movie->setTrailerLink(str_replace('watch?v=', 'embed/', $movie->getTrailerLink()));
+        $people = $this->getDoctrine()
+        ->getRepository(People::class)
+        ->findAll();
+        $genre = $this->getDoctrine()
+        ->getRepository(Genre::class)
+        ->findAll();
+        $user = $this->getDoctrine()
+        ->getRepository(User::class)
+        ->findByFullName(get_current_user());
+        $movie->setUser($user[0]);
+        if(empty($people)) {
+            $this->addFlash(
+                'info',
+                'Aucune personne n\'a été créé...<a href="/people/new">en créer une ?</a>'
+            );
+        }
+        if(empty($genre)) {
+            $this->addFlash(
+                'info',
+                'Aucun genre n\'a été créé...<a href="/genre/new">en créer un ?</a>'
+            );
+        }
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($movie);
             $em->flush();
 
-            return $this->redirectToRoute('movies_index');
+            return $this->redirectToRoute('index');
         }
 
         return $this->render('movies/new.html.twig', [
@@ -62,6 +88,7 @@ class MoviesController extends AbstractController
     {
         $form = $this->createForm(MoviesType::class, $movie);
         $form->handleRequest($request);
+        $movie->setTrailerLink(str_replace('watch?v=', 'embed/', $movie->getTrailerLink()));
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
@@ -89,49 +116,5 @@ class MoviesController extends AbstractController
         return $this->redirectToRoute('movies_index');
     }
 
-      /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
-     */
-    public function setImageFile(?File $image = null): void
-    {
-        $this->imageFile = $image;
-
-        if (null !== $image) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    public function setImageName(?string $imageName): void
-    {
-        $this->imageName = $imageName;
-    }
-
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
-    }
-
-    public function setImageSize(?int $imageSize): void
-    {
-        $this->imageSize = $imageSize;
-    }
-
-    public function getImageSize(): ?int
-    {
-        return $this->imageSize;
-    }
 
 }

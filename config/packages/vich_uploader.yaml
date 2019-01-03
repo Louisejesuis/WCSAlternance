@@ -2,9 +2,9 @@ vich_uploader:
     db_driver: orm
 
     mappings:
-        person_images:
-            uri_prefix: /images/person
-            upload_destination: '%kernel.project_dir%/public/images/person'
+        movie_images:
+            uri_prefix: /images/movies
+            upload_destination: '%kernel.project_dir%/public/images/movies'
 
 
             inject_on_load: false

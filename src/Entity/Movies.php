@@ -72,7 +72,7 @@ class Movies
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="person_images", fileNameProperty="imageName", size="imageSize")
+     * @Vich\UploadableField(mapping="movie_images", fileNameProperty="imageName", size="imageSize")
      *
      * @var File
      */
