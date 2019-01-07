@@ -39,6 +39,5 @@ security:
 
     access_control:
         # Les regles de securité
-        # Là dans ce cas seul les utilisateurs ayant le rôle ROLE_ADMIN
-        # peuvent acceder à toutes les pages commençant par /admin
-        - { path: '^/admin', roles: ROLE_ADMIN }
+        - { path: '/new', roles: ROLE_USER }
+        - { path: '/[0-9]', roles: ROLE_USER }

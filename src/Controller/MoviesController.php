@@ -42,7 +42,7 @@ class MoviesController extends AbstractController
         ->findAll();
         $user = $this->getDoctrine()
         ->getRepository(User::class)
-        ->findByFullName(get_current_user());
+        ->findByUsername($this->getUser()->getUsername());
         $movie->setUser($user[0]);
         if(empty($people)) {
             $this->addFlash(
